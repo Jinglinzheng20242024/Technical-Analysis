@@ -22,5 +22,13 @@ def plot_close(df):
 # def plot_candlestick(df):
 
 def stat_param(df:pd.DataFrame):
-    price_col = ['open','close','high','low']
-    print(df[price_col].describe())
+    price_col = ['open', 'close','high','low']
+    stats = df[price_col].describe()
+
+    #Add mode, variance, skewness, kurtosis
+    stats.loc['mode'] = df[price_col].apply(lambda x: x.mode().tolist())
+    stats.loc['variance'] = df[price_col].var()
+    stats.loc['skewness'] = df[price_col].skew()
+    stats.loc['kurtosis'] = df[price_col].kurtosis()
+
+    print(stats)
